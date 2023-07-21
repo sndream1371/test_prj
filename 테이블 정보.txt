@@ -1,0 +1,108 @@
+---------------
+TB_JUO_SUB_INFO
+---------------
+컬럼명	#	Type	Type Mod	Not Null	디폴트	Comment
+CONTNUM	1	VARCHAR2(9)	[NULL]	true	[NULL]	고객ID (ENTR_NO)
+BAN	2	VARCHAR2(11)	[NULL]	true	[NULL]	청구계정번호
+CUSTID	3	VARCHAR2(9)	[NULL]	true	[NULL]	가입계약번호
+SUBNO	4	VARCHAR2(11)	[NULL]	true	[NULL]	전화번호(이전CTN)
+SUBCSMSTS	5	CHAR(1)	[NULL]	true	[NULL]	가입자상태
+SUBCSMDT	6	VARCHAR2(14)	[NULL]	true	[NULL]	상태변경일
+RSNCD	7	VARCHAR2(4)	[NULL]	false	[NULL]	가입자 상태사유 코드
+USSN	8	VARCHAR2(66)	[NULL]	false	[NULL]	주민번호
+SADDRZIP	9	VARCHAR2(6)	[NULL]	false	[NULL]	사용자우편번호
+SPRMADDRLN	10	VARCHAR2(100)	[NULL]	false	[NULL]	사용자 주소
+SSECADDRLN	11	VARCHAR2(100)	[NULL]	false	[NULL]	사용자 상세주소
+SNMLOB	12	VARCHAR2(60)	[NULL]	false	[NULL]	사용자이름
+MODNM	13	VARCHAR2(30)	[NULL]	true	[NULL]	단말기모델명
+MODID	14	VARCHAR2(8)	[NULL]	true	[NULL]	단말기모델ID
+NCN	15	VARCHAR2(20)	[NULL]	false	[NULL]	NCN(이전NCN)
+GRADECD	16	CHAR(1)	[NULL]	false	[NULL]	NCN_GRADE
+IMSI	17	VARCHAR2(15)	[NULL]	false	[NULL]	W-CDMA가입자 구분값
+ICCID	18	VARCHAR2(19)	[NULL]	false	[NULL]	USIM 카드 일련번호
+G3IND	19	CHAR(1)	[NULL]	false	[NULL]	고객2G/3G구분
+DEALERCD	20	VARCHAR2(7)	[NULL]	false	[NULL]	판매자 코드
+LSTCOMACTVDATE	21	VARCHAR2(14)	[NULL]	false	[NULL]	최초 개통일
+LSTDEVCHGDATE	22	VARCHAR2(14)	[NULL]	false	[NULL]	최종기변일
+ITNET_BAL_YN	23	CHAR(1)	[NULL]	false	[NULL]	지능망잔액여부
+IMEI	24	VARCHAR2(16)	[NULL]	false	[NULL]	IMEI
+SUBSTATUSLASTACT	25	VARCHAR2(3)	[NULL]	false	[NULL]	최종상태 변경작업 코드
+MKTCD	26	VARCHAR2(3)	[NULL]	false	[NULL]	판매회사코드
+SRLNO	27	VARCHAR2(19)	[NULL]	false	[NULL]	단말기일련번호
+WBRIMEI	28	VARCHAR2(19)	[NULL]	false	[NULL]	Wibro IMEI
+WBRMAC	29	VARCHAR2(12)	[NULL]	false	[NULL]	Wibro MAC
+USIMFIX	30	VARCHAR2(16)	[NULL]	false	[NULL]	통합 USIM ID
+WIFIMAC	31	VARCHAR2(12)	[NULL]	false	[NULL]	Wifi MAC
+CNUSECD	32	VARCHAR2(2)	[NULL]	false	[NULL]	계약용도코드
+SVCCN	33	VARCHAR2(9)	[NULL]	false	[NULL]	서비스계약번호
+RCUSNO	34	VARCHAR2(9)	[NULL]	false	[NULL]	실사용고객
+IFID	35	VARCHAR2(9)	[NULL]	false	[NULL]	MVNO사업자 계약 인터페이스 ID
+INDYENTSN	36	VARCHAR2(20)	[NULL]	false	[NULL]	사업자번호
+INDYENTNM	37	VARCHAR2(60)	[NULL]	false	[NULL]	사업자번호고객명
+MNPIND	38	CHAR(1)	[NULL]	false	[NULL]	번호이동구분
+UNPDIND	39	CHAR(1)	[NULL]	false	[NULL]	미납상태코드
+EVNTCD	40	VARCHAR2(3)	[NULL]	false	[NULL]	이벤트코드
+TRNSSEQ	41	VARCHAR2(9)	[NULL]	false	[NULL]	이벤트처리번호
+EVNTDT	42	VARCHAR2(14)	[NULL]	false	[NULL]	이벤트발생일
+SYS_CREATION_DATE	43	DATE	[NULL]	false	SYSDATE	
+SYS_UPDATE_DATE	44	DATE	[NULL]	false	[NULL]	
+SNDARVSTAT	45	VARCHAR2(2)	[NULL]	false	[NULL]	발착신상태코드
+LGLCUSTNO	46	VARCHAR2(9)	[NULL]	false	[NULL]	법정대리인
+AUXLGLCUSTNO	47	VARCHAR2(9)	[NULL]	false	[NULL]	보조대리인
+RLSRLNO	48	VARCHAR2(30)	[NULL]	false	[NULL]	실물일련번호
+DUALHND	49	VARCHAR2(10)	[NULL]	false	[NULL]	듀얼단말
+USIMTYPE	50	CHAR(1)	[NULL]	false	[NULL]	유심유형
+COMCD	51	VARCHAR2(3)	[NULL]	false	[NULL]	결합유형코드
+COMEFFDT	52	VARCHAR2(14)	[NULL]	false	[NULL]	결합유효시작일
+COMEXPDT	53	VARCHAR2(14)	[NULL]	false	[NULL]	결합유효종료일
+COMSTAT	54	VARCHAR2(3)	[NULL]	false	[NULL]	결합상태코드
+USIMODNM	55	VARCHAR2(60)	[NULL]	false	[NULL]	유심모델 명
+USIMODID	56	VARCHAR2(11)	[NULL]	false	[NULL]	유심모델 ID
+USIMONLY	57	VARCHAR2(10)	[NULL]	false	[NULL]	유심단독여부
+AGREEMK	58	VARCHAR2(50)	[NULL]	false	[NULL]	동의여부
+
+--------------------------
+TB_JUO_SUB_HIST
+--------------------------
+컬럼명	#	Type	Type Mod	Not Null	디폴트	Comment
+CONTNUM	1	VARCHAR2(9)	[NULL]	true	[NULL]	계약번호
+BAN	2	VARCHAR2(11)	[NULL]	true	[NULL]	청구계정번호
+CUSTID	3	VARCHAR2(9)	[NULL]	true	[NULL]	고객id(명의)
+SUBNO	4	VARCHAR2(11)	[NULL]	true	[NULL]	전화번호
+EFFDT	5	VARCHAR2(14)	[NULL]	true	[NULL]	최종 변경일
+EXPDT	6	VARCHAR2(14)	[NULL]	true	[NULL]	만료일
+SUBCSMSTS	7	CHAR(1)	[NULL]	false	[NULL]	가입자상태
+RSNCD	8	VARCHAR2(4)	[NULL]	false	[NULL]	가입자 상태사유 코드
+SUBSTATUSLASTACT	9	VARCHAR2(3)	[NULL]	false	[NULL]	최종상태 변경작업 코드
+OCCUPCD	10	VARCHAR2(2)	[NULL]	false	[NULL]	직업코드
+SYSCRDT	11	VARCHAR2(14)	[NULL]	false	[NULL]	ROW생성일
+SYSUPDT	12	VARCHAR2(14)	[NULL]	false	[NULL]	ROW변경일
+ISMVNO	13	CHAR(1)	[NULL]	false	[NULL]	MVNO여부
+MKTCD	14	VARCHAR2(3)	[NULL]	false	[NULL]	판매회사코드
+EVNTCD	15	VARCHAR2(3)	[NULL]	false	[NULL]	이벤트코드
+TRNSSEQ	16	VARCHAR2(9)	[NULL]	false	[NULL]	이벤트처리번호
+EVNTDT	17	VARCHAR2(14)	[NULL]	false	[NULL]	이벤트발생일
+SYS_CREATION_DATE	18	DATE	[NULL]	false	SYSDATE	
+SYS_UPDATE_DATE	19	DATE	[NULL]	false	[NULL]	
+
+
+--------------------------
+TB_JUO_FEATURE_INFO
+--------------------------
+컬럼명	#	Type	Type Mod	Not Null	디폴트	Comment
+CONTNUM	1	VARCHAR2(9)	[NULL]	true	[NULL]	가입계약번호
+SOC	2	VARCHAR2(9)	[NULL]	true	[NULL]	상품코드
+FTRCD	3	VARCHAR2(6)	[NULL]	true	[NULL]	부가서비스코드
+SRVTP	4	CHAR(1)	[NULL]	true	[NULL]	서비스종류 (P:요금제, R:부가상품)
+EFFDT	5	VARCHAR2(14)	[NULL]	true	[NULL]	유효일
+EXPDT	6	VARCHAR2(14)	[NULL]	true	[NULL]	만기일
+CHGCD	7	CHAR(1)	[NULL]	false	[NULL]	상품구분
+INBH	8	VARCHAR2(40)	[NULL]	false	[NULL]	장비 구분
+DEALERCD	9	VARCHAR2(7)	[NULL]	false	[NULL]	판매자 코드
+EVNTCD	10	VARCHAR2(3)	[NULL]	false	[NULL]	이벤트코드
+TRNSSEQ	11	VARCHAR2(9)	[NULL]	false	[NULL]	이벤트처리번호
+EVNTDT	12	VARCHAR2(14)	[NULL]	false	[NULL]	이벤트발생일
+SVCCN	13	VARCHAR2(9)	[NULL]	true	[NULL]	서비스계약번호
+SYS_CREATION_DATE	14	DATE	[NULL]	false	SYSDATE	
+SYS_UPDATE_DATE	15	DATE	[NULL]	false	[NULL]	
+PHSEQ	16	VARCHAR2(15)	[NULL]	false	[NULL]	상품정보SEQ

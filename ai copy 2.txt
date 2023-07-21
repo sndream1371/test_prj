@@ -1,0 +1,79 @@
+테이블명 : TB_JUO_CUS_INFO
+컬럼 : 고객ID(PK),아이핀DI,법정대리인아이핀DI
+
+위의 테이블에서 법정대리인아이핀DI로 아이핀DI정보를 찾아 고객ID정보와, 법정대리인아이핀DI의 고객ID정보를 조회하는 오라클 쿼리로 작성해줘
+두개의 테이블을 복제해서 전체 데이터를 처리하는 쿼리로 작성해줘
+----------------------------
+->>
+-- Query to find the customer ID and the customer ID associated with the legal representative's 아이핀DI using 법정대리인아이핀DI
+SELECT 
+    t1.고객ID, 
+    t2.고객ID AS 법정대리인_고객ID
+FROM 
+    TB_JUO_CUS_INFO t1
+JOIN 
+    TB_JUO_CUS_INFO t2 ON t1.아이핀DI = t2.법정대리인아이핀DI;
+
+------------------------------------------------------------
+
+SELECT  A.IPINDI -- 자식의 아이핀DI
+        B.custid -- 법정대리인의 custdi
+  FROM TB_JUO_CUS_INFO A
+      ,TB_JUO_CUS_INFO B 
+ WHERE A.LEGALDI = B.IPINDI 
+
+위쿼리의 실행정보를 FTBS_CS_CUST_BAS 테이블에 custid로 조회해서 ipindi값을 업데이트하려해
+쿼리를 작성해줘
+
+==>>
+UPDATE FTBS_CS_CUST_BAS
+SET ipindi = (
+    SELECT A.IPINDI
+    FROM TB_JUO_CUS_INFO A
+    INNER JOIN TB_JUO_CUS_INFO B ON A.LEGALDI = B.IPINDI
+    WHERE FTBS_CS_CUST_BAS.custid = B.custid
+)
+
+====================================================================================
+아래 3개의 테이블을 이용해 데이터를 마이그 처리를 하려해 
+아래 테이블의 유형에따른 타겟테이블 1개로 마이그 될수 있도록 오라클 쿼리로 작성해줘
+
+테이블1 :TB_JUO_SUB_HIST
+테이블1 설명 : 이력테이블, TB_JUO_SUB_INFO 테이블의 가입자 상태 변경(정지,정지해제,상품변경) 이벤트가 발생할때마다 변경 이벤트 코드 채번되어 정보가 입력됨
+
+테이블2 : TB_JUO_SUB_INFO
+테이블2 설명 : 가입자 정보, 해지전까지 가입자 정보를 가지고 있음, 해지시 TB_JUO_SUB_INFO_CANCEL테이블로 사용자 레코드 이동
+
+테이블2 : TB_JUO_SUB_INFO_CANCEL
+테이블2 설명 : 해지시 TB_JUO_SUB_INFO테이블 레코드가  TB_JUO_SUB_INFO_CANCEL테이블로 move 처리됨, TB_JUO_SUB_HIST테이블의 가입계약아이디의 상태코드는 C로 업데이트
+
+타겟테이블 : FTBS_CS_SVC_CONT_BAS
+컬럼 논리명 | 컬럼물리명
+서비스계약아이디(PK) |	SVC_CONT_ID(PK)
+가입계약아이디(PK) |	JOIN_CONT_ID(PK)
+
+===>
+-- Merge data from TB_JUO_SUB_HIST, TB_JUO_SUB_INFO, and TB_JUO_SUB_INFO_CANCEL into FTBS_CS_SVC_CONT_BAS
+MERGE INTO FTBS_CS_SVC_CONT_BAS tgt
+USING (
+    -- Select data from TB_JUO_SUB_HIST
+    SELECT
+        H.SVC_CONT_ID,
+        H.JOIN_CONT_ID
+    FROM TB_JUO_SUB_HIST H
+    WHERE H.EVENT_CODE IN ('정지', '정지해제', '상품변경')
+) src1 ON (tgt.SVC_CONT_ID = src1.SVC_CONT_ID AND tgt.JOIN_CONT_ID = src1.JOIN_CONT_ID)
+WHEN MATCHED THEN
+    -- Update the status code to 'C' in FTBS_CS_SVC_CONT_BAS if the record exists in TB_JUO_SUB_INFO_CANCEL
+    UPDATE SET tgt.STATUS_CODE = 'C'
+WHEN NOT MATCHED THEN
+    -- Insert the record into FTBS_CS_SVC_CONT_BAS if it doesn't exist
+    INSERT (SVC_CONT_ID, JOIN_CONT_ID)
+    VALUES (src1.SVC_CONT_ID, src1.JOIN_CONT_ID)
+    WHERE EXISTS (
+        -- Check if the record exists in TB_JUO_SUB_INFO
+        SELECT 1
+        FROM TB_JUO_SUB_INFO I
+        WHERE I.SVC_CONT_ID = src1.SVC_CONT_ID AND I.JOIN_CONT_ID = src1.JOIN_CONT_ID
+    );
+

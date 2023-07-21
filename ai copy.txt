@@ -1,0 +1,31 @@
+자바에서 고정길이 문자열 을 만들거야
+euc-kr 인코딩으로
+문자형으로 선언하여 길이를 넣으면 앞정렬 왼쪽 공백
+숫자형으로 선언하여 길이를 넣으면 오른쪽정렬 왼쪽 0숫자로 채우는 자바코드를 만들어줘
+---------
+java
+import java.nio.charset.Charset;
+
+public class FixedLengthString {
+    private static final Charset CHARSET = Charset.forName("euc-kr");
+
+    public static String createString(String value, int length) {
+        // 문자형으로 선언하여 길이를 넣으면 앞정렬 왼쪽 공백
+        String formattedString = String.format("%-" + length + "s", value);
+        return new String(formattedString.getBytes(CHARSET), CHARSET);
+    }
+
+    public static String createString(int value, int length) {
+        // 숫자형으로 선언하여 길이를 넣으면 오른쪽정렬 왼쪽 0 숫자로 채우기
+        String formattedString = String.format("%0" + length + "d", value);
+        return new String(formattedString.getBytes(CHARSET), CHARSET);
+    }
+
+    public static void main(String[] args) {
+        String stringValue = createString("abc", 10);
+        System.out.println(stringValue); // "abc       " (앞정렬, 왼쪽 공백)
+
+        String intValue = createString(123, 10);
+        System.out.println(intValue); // "0000000123" (오른쪽정렬, 왼쪽 0으로 채우기)
+    }
+}
